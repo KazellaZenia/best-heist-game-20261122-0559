@@ -25,25 +25,25 @@ export const THIEF = {
 export const GUARD = {
   radius: 12,
   patrolSpeed: 72,
-  chaseSpeed: 208,
+  chaseSpeed: 165,
   searchSpeed: 110,
-  visionRange: 205,
-  visionHalfAngle: 0.62,
-  suspicionPerSecond: 70,
+  visionRange: 185,
+  visionHalfAngle: 0.55,
+  suspicionPerSecond: 55,
   suspicionDecay: 14,
   chaseMemory: 3,
   searchTime: 4,
 };
 
 export const CAMERA = {
-  range: 235,
+  range: 205,
   halfAngle: 0.45,
   sweepSpeed: 0.55,
   sweepArc: 0.9,
-  alarmPerSecond: 26,
+  alarmPerSecond: 9,
 };
 
-export const LASER = { alarmTrip: 30, onSeconds: 2.2, offSeconds: 1.4 };
+export const LASER = { alarmTrip: 18, onSeconds: 2.2, offSeconds: 1.4 };
 
 /** Noise radius by floor type while walking (halved while sneaking). */
 export const FLOOR_NOISE = { carpet: 34, tile: 58, marble: 95 };
@@ -106,9 +106,17 @@ export const WALLS = [
   // Atrium pillars.
   { x: 600, y: 190, w: 42, h: 42 },
   { x: 600, y: 480, w: 42, h: 42 },
-  // Vault display plinths (low blocks the thief walks around, guards see over).
-  { x: 1000, y: 90, w: 90, h: 26 },
-  { x: 1000, y: 250, w: 90, h: 26 },
+];
+
+/**
+ * Floor inlays in the Vault Hall: brass-trimmed display stands for the Diamond
+ * and the Mask. They are drawn on the floor, never walls: a low case must not
+ * trap a chase the way a wall does (a guard sliding along one stalls 27 px
+ * short of the thief and the catch never happens).
+ */
+export const DECOR = [
+  { x: 1105, y: 140, w: 90, h: 22, label: 'MERIDIAN' },
+  { x: 905, y: 318, w: 90, h: 22, label: 'AURUM' },
 ];
 
 /** Floor zones: name, rect, type (drives noise) and label. */

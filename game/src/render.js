@@ -2,7 +2,7 @@
 // thief crossing them, guard vision cones, CCTV cones, laser beams, the loot and
 // the alarm meter in the HUD. No images: every sprite is drawn in code.
 import {
-  CAMERA, DOORS, EXIT, FIELD, GUARD, LOOT_TARGET, PALETTE, ROOMS, WALLS,
+  CAMERA, DECOR, DOORS, EXIT, FIELD, GUARD, LOOT_TARGET, PALETTE, ROOMS, WALLS,
 } from './config.js';
 
 export const SCREEN_TITLE = 0;
@@ -81,6 +81,20 @@ export function render(ctx, world, screen, best) {
   for (const d of DOORS) {
     ctx.fillStyle = PALETTE.door;
     ctx.fillRect(d.x, d.y, d.w, d.h);
+  }
+
+  // --- Vault display stands: brass floor inlays, never walls. ---
+  for (const d of DECOR) {
+    ctx.fillStyle = 'rgba(138, 109, 59, 0.5)';
+    ctx.fillRect(d.x, d.y, d.w, d.h);
+    ctx.strokeStyle = PALETTE.door;
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(d.x, d.y, d.w, d.h);
+    ctx.fillStyle = 'rgba(238,241,245,0.4)';
+    ctx.font = '600 10px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(d.label, d.x + d.w / 2, d.y + d.h / 2);
   }
 
   // --- Exit zone: green pad, glowing once the loot target is met. ---

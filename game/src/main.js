@@ -134,3 +134,16 @@ function runShot(name) {
 
 if (shot) runShot(shot);
 else window.requestAnimationFrame(frame);
+
+// Test hook: lets an automated play-test read live state (position, alarm,
+// guard states, loot). Read-only from the page's point of view; the game
+// itself never reads it.
+window.__ironveil = {
+  world,
+  get screen() {
+    return screen;
+  },
+  get best() {
+    return best;
+  },
+};

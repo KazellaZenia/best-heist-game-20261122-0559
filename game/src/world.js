@@ -89,6 +89,7 @@ export function createWorld(random) {
     name: g.name,
     waypoints: g.waypoints,
     x: g.waypoints[0][0], y: g.waypoints[0][1],
+    radius: GUARD.radius,
     angle: 0, wpIndex: 1, state: 'patrol',
     suspicion: 0, lastSeenX: 0, lastSeenY: 0, loseTimer: 0, searchTimer: 0,
   }));
@@ -256,7 +257,7 @@ export function createWorld(random) {
         g.loseTimer = 0;
         state.seen = true;
         g.suspicion = Math.min(100, g.suspicion + GUARD.suspicionPerSecond * dt);
-        state.alarm = Math.min(ALARM_MAX, state.alarm + 22 * dt);
+        state.alarm = Math.min(ALARM_MAX, state.alarm + 10 * dt);
         if (g.suspicion >= 100 && g.state !== 'chase') {
           g.state = 'chase';
           events |= EVENT_SPOTTED;
@@ -312,7 +313,7 @@ export function createWorld(random) {
     }
 
     // --- Alarm decays when nobody is watching; at 100 the vault locks down. ---
-    if (!watched) state.alarm = Math.max(0, state.alarm - 4 * dt);
+    if (!watched) state.alarm = Math.max(0, state.alarm - 7 * dt);
     state.maxAlarm = Math.max(state.maxAlarm, state.alarm);
     if (state.alarm >= ALARM_MAX) return finishLose('Alarm hit 100 — lockdown. The vault sealed with the crew inside.');
 
